@@ -7,15 +7,34 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="css/food.css">
   </head>
-  <body>
+  <body data-ng-app="food" >
     <h1>Food</h1>
-    <input id="recipeName" autofocus type="text" name="name" value="">
-    <input id="recipeDescription" type="text" name="description" value="">
 
-    <ul id="recipeList"></ul>
+    <div data-ng-controller="sessionController">
+      <span ng-hide="!auth">Logged in: </span>
+      <span ng-hide="!auth" ng-bind="user.displayName"></span>
 
-    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <a ng-href="#" ng-hide="auth" ng-click="user.logout()">Log out</a>
+      <a ng-href="#" ng-hide="!auth" ng-click="user.login()">Log in</a>
+    </div>
+
+    <div data-ng-controller="foodController" class="foodInput">
+
+      <input autofocus
+             data-ng-model="recipe.name"
+             data-ng-keydown="($event.keyCode == 13) && addRecipe(recipe) && clearInput()">
+
+      <ul id="recipeList">
+        <li data-ng-repeat="(key, value) in recipes">
+          <span ng-bind="value.name"></span>
+        </li>
+      </ul>
+
+    </div>
+
+    <script src="lib/angular-1.3.15.min.js"></script>
+    <script src="lib/firebase-2.2.4.min.js"></script>
+    <script src="lib/angularfire-1.1.3.min.js"></script>
     <script type="text/javascript" src="scripts/food.js"></script>
   </body>
 </html>
