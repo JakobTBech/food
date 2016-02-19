@@ -1,8 +1,15 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+header {
+  overflow: auto;
+  border-bottom: 1px #ccc solid;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 10px 1px #888888;
 }
 
-a {
-  color: #00B7FF;
+.header {
+  float: left;
+}
+
+.session-status {
+  float: right;
+  margin: 20px 5px 0 0;
 }
