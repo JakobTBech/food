@@ -1,0 +1,41 @@
+<div ng-show="user.isLoggedIn" class="row foodInput">
+  <h3>Ret en opskrift</h3>
+  <form name="foodForm" data-ng-controller="editFoodController">
+    <div class="col-xs-12 recipe-form form-group">
+      <label for="recipeName">Opskriftens navn</label>
+      <input id="recipeName"
+             class="recipe-name form-control"
+             placeholder="Opskriftens navn"
+             autofocus
+             data-ng-disabled="!user.isLoggedIn"
+             data-ng-keydown="($event.keyCode == 13)"
+             data-ng-model="recipe.name"
+             data-ng-trim="true" />
+      <uib-alert ng-repeat="alert in alerts" type="danger" dismiss-on-timeout="5000" close="closeAlert()">{{alert.text}}</uib-alert>
+    </div>
+
+    <div class="col-xs-12 recipe-form form-group">
+      <label for="ingredients">Ingredienser</label>
+      <input id="ingredients" class="ingredient-name form-control" value="" placeholder="Tilføj ingredienser"
+      data-ng-disabled="!user.isLoggedIn"
+      data-ng-model="ingredient.name"
+      data-ng-keydown="($event.keyCode == 13) && ingredient.name.length > 0 && recipe.ingredients.push(ingredient) && setNewIngredient()" />
+
+      <div class="ingredient-tags">
+        <span class="ingredient-tag" ng-repeat="ingredient in recipe.ingredients">
+          {{ingredient.name}}
+          <a class="round-button" ng-href="#" ng-click="removeIngredient($event, $index)"></a>
+        </span>
+      </div>
+    </div>
+
+
+    <div class="col-xs-12 recipe-form form-group">
+      <label for="recipedescription">Opskriftens beskrivelse</label>
+      <textarea class="recipe-description form-control" placeholder="Opskriftens beskrivelse" id="recipedescription"
+      data-ng-model="recipe.description"
+      data-ng-disabled="!user.isLoggedIn" ></textarea>
+    </div>
+
+  </form>
+</div>
