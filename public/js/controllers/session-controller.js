@@ -1,10 +1,10 @@
 foodApp.controller("sessionController", ['$scope', 'session', function($scope, session) {
   $scope.user = {};
-  initUser(session.getAuth());
+  initUser();
 
   $scope.user.login = function () {
-    session.loginWithOAuthPopup(function(authData) {
-      initUser(authData);
+    session.loginWithOAuthPopup(function() {
+      initUser();
     }, function(error) {
       console.log("Authentication failed:", error);
       initUser();
@@ -16,12 +16,12 @@ foodApp.controller("sessionController", ['$scope', 'session', function($scope, s
     initUser();
   };
 
-  function initUser(authData) {
+  function initUser() {
     var auth = session.getAuth();
-    if (authData) {
+    if (auth) {
       $scope.user.isLoggedIn = !!auth;
       $scope.user.authDetails = auth;
-      $scope.user.displayName = auth.google.displayName;
+      $scope.user.profile = session.getUserProfile();
     } else {
       session.logout();
       $scope.user.isLoggedIn = false;

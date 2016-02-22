@@ -20,8 +20,20 @@ foodApp.factory('session', ['db', '$firebaseAuth', '$timeout', '$location', func
     },1);
   };
 
+  var getUserProfile = function() {
+    if (isLoggedIn()) {
+      var profile = auth.$getAuth().google;
+      return {
+        id: profile.id,
+        displayName: profile.displayName,
+        image: profile.profileImageURL
+      };
+    }
+  }
+
   return {
     getAuth: auth.$getAuth,
+    getUserProfile: getUserProfile,
     isLoggedIn: isLoggedIn,
     loginWithOAuthPopup: loginWithOAuthPopup,
     logout: logout

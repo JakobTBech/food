@@ -7,13 +7,21 @@ foodApp.config(['$routeProvider',
       templateUrl: 'views/home.html',
       controller: 'homeController'
     }).
-    when('/food', {
-      templateUrl: 'views/food.html',
-      controller: 'foodController'
+    when('/food/find', {
+      templateUrl: 'views/find-food.html',
+      controller: 'findFoodController'
+    }).
+    when('/food/create', {
+      templateUrl: 'views/create-food.html',
+      controller: 'createFoodController'
+    }).
+    when('/food/edit/:recipeId', {
+      templateUrl: 'views/edit-food.html',
+      controller: 'editFoodController'
     }).
     when('/login', {
       templateUrl: 'views/login.html',
-      controller: 'foodController'
+      controller: 'loginController'
     }).
     otherwise({
         redirectTo: '/'
