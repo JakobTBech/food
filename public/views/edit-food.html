@@ -1,5 +1,5 @@
 <div ng-show="user.isLoggedIn" class="row foodInput">
-  <h3>Ret en opskrift</h3>
+  <h3>Redigér en opskrift</h3>
   <form name="foodForm" data-ng-controller="editFoodController">
     <div class="col-xs-12 recipe-form form-group">
       <label for="recipeName">Opskriftens navn</label>
@@ -19,13 +19,17 @@
       <input id="ingredients" class="ingredient-name form-control" value="" placeholder="Tilføj ingredienser"
       data-ng-disabled="!user.isLoggedIn"
       data-ng-model="ingredient.name"
-      data-ng-keydown="($event.keyCode == 13) && ingredient.name.length > 0 && recipe.ingredients.push(ingredient) && setNewIngredient()" />
+      data-ng-keydown="addIngredient($event, ingredient)" />
 
       <div class="ingredient-tags">
-        <span class="ingredient-tag" ng-repeat="ingredient in recipe.ingredients">
-          {{ingredient.name}}
-          <a class="round-button" ng-href="#" ng-click="removeIngredient($event, $index)"></a>
-        </span>
+        <ul>
+          <li ng-repeat="ingredient in recipe.ingredients">
+            <span class="ingredient-tag">
+              {{ingredient.name}}
+              <a class="round-button" ng-href="#" ng-click="removeIngredient($event, $index)"></a>
+            </span>
+          </li>
+        </ul>
       </div>
     </div>
 
