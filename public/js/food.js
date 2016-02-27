@@ -1,4 +1,4 @@
-var foodApp = angular.module('food', ['firebase', 'ui.bootstrap', 'ngRoute']);
+var foodApp = angular.module('food', ['firebase', 'ui.bootstrap', 'ngAnimate', 'ngRoute']);
 
 foodApp.config(['$routeProvider',
   function($routeProvider) {
