@@ -7,8 +7,8 @@
              class="recipe-name form-control"
              placeholder="Opskriftens navn"
              autofocus
-             data-ng-disabled="!user.isLoggedIn"
-             data-ng-keydown="($event.keyCode == 13)"
+             data-ng-keydown="recipe.$save()"
+             data-ng-disabled="!user.isLoggedIn || !recipe.name"
              data-ng-model="recipe.name"
              data-ng-trim="true" />
       <uib-alert ng-repeat="alert in alerts" type="danger" dismiss-on-timeout="5000" close="closeAlert()">{{alert.text}}</uib-alert>
@@ -17,16 +17,16 @@
     <div class="col-xs-12 recipe-form form-group">
       <label for="ingredients">Ingredienser</label>
       <input id="ingredients" class="ingredient-name form-control" value="" placeholder="Tilføj ingredienser"
-      data-ng-disabled="!user.isLoggedIn"
-      data-ng-model="ingredient.name"
-      data-ng-keydown="addIngredient($event, ingredient)" />
+      data-ng-disabled="!user.isLoggedIn || !recipe.name"
+      data-ng-model="recipe.$ingredient.name"
+      data-ng-keydown="$event.keyCode == 13 && recipe.$addIngredient() && recipe.$save()" />
 
       <div class="ingredient-tags">
         <ul>
           <li ng-repeat="ingredient in recipe.ingredients">
             <span class="ingredient-tag">
               {{ingredient.name}}
-              <a class="round-button" ng-href="#" ng-click="removeIngredient($event, $index)"></a>
+              <a class="round-button" ng-href="" ng-click="recipe.$removeIngredient($index) && recipe.$save()"></a>
             </span>
           </li>
         </ul>
@@ -38,7 +38,8 @@
       <label for="recipedescription">Opskriftens beskrivelse</label>
       <textarea class="recipe-description form-control" placeholder="Opskriftens beskrivelse" id="recipedescription"
       data-ng-model="recipe.description"
-      data-ng-disabled="!user.isLoggedIn" ></textarea>
+      data-ng-disabled="!user.isLoggedIn || !recipe.name"
+      data-ng-keydown="recipe.$save()"></textarea>
     </div>
 
   </form>
